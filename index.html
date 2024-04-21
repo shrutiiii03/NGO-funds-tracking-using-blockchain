@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connect To Metamask</title>
+    <meta charset="UTF-8" />
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+    <style>
+      #button1 {
+  border: solid 2px #444;
+  font-size:40px;
+  padding: 20px 40px 20px 70px;
+  align-items: center;
+  background: #fffffe;
+  background-image: url("mm.png");
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: 20px;
+  font-weight: bold;
+  color: #172d4c;
+  box-shadow: inset 2px 2px 0 #fff, 0 8px 10px -4px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.button2 {
+  /* border: solid 2px #444; */
+  font-size:20px;
+  padding: 20px 40px 20px 40px;
+  /* align-items: center; */
+  background: #3e4271;
+  text-align: center;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 20px;
+  font-weight: bold;
+  color: #fff;
+  /* box-shadow: inset 2px 2px 0 #fff, 0 8px 10px -4px rgba(0,0,0,0.4); */
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+    </style>
+   
+
+      
+    
+  </head>
+  
+  <body style="background-color: rgb(15, 12, 46);">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <center>
+    <button id="button1"> Connect Metamask</button>
+    </center>
+    <br>
+    <br>
+    <center>
+      <a href="mainpage.html">
+      <button class="button2">Go back to Home</button></a>
+    </center>
+    
+    <script>
+      document.getElementById('button1').addEventListener('click', event => {
+        let account;
+        let button = event.target;
+        ethereum.request({method: 'eth_requestAccounts'}).then(accounts => {
+          account = accounts[0];
+          console.log(account);
+          button.textContent = account;
+
+          ethereum.request({method: 'eth_getBalance' , params: [account, 'latest']}).then(result => {
+            console.log(result);
+            let wei = parseInt(result,16);
+            let balance = wei / (10**18);
+            console.log(balance + " ETH");
+          });
+        });
+      });
+    </script>  
+  </body>
+</html>
